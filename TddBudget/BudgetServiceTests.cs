@@ -54,11 +54,11 @@ namespace TddBudget
         {
             GivenBudget(new List<Budget>
             {
-                new Budget { YearMonth = "201803", Amount = 310},
-                new Budget { YearMonth = "201804", Amount = 0}
+                new Budget { YearMonth = "2018/03", Amount = 310},
+                new Budget { YearMonth = "2018/04", Amount = 0}
             });
 
-            BudgetsShouldBe(160, new DateTime(2018, 3, 15), new DateTime(2018, 4, 5));
+            BudgetsShouldBe(170, new DateTime(2018, 3, 15), new DateTime(2018, 4, 5));
         }
 
         private void BudgetsShouldBe(decimal expected, DateTime startDate, DateTime endDate)

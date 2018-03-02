@@ -14,26 +14,34 @@ namespace TddBudget
         public decimal CalBudgets(DateTime startDate, DateTime endDate)
         {
             var budgets = _budgetRepository.GetAll();
-
+            var totalAmount = 0m;
             foreach (var budget in budgets)
             {
-                return BudgetInMonth(startDate, endDate, budget);
+                totalAmount += BudgetInMonth(startDate, endDate, budget);
             }
 
-            return 0;
+            return totalAmount;
         }
 
         private decimal BudgetInMonth(DateTime startDate, DateTime endDate, Budget budget)
         {
             var budgetDate = Convert.ToDateTime(budget.YearMonth);
-
             //不在當月
             if (startDate.Month != budgetDate.Month && endDate.Month != budgetDate.Month)
             {
                 return 0;
             }
 
-            return budget.Amount / DaysInMonth(startDate) * BudgetDaysInMonth(startDate, endDate);
+            if (startDate >= budgetDate)
+            {
+                var date = endDate.Month == budgetDate.Month
+                    ? endDate
+                    : budgetDate.AddMonths(1).AddDays(-1);
+
+                return budget.Amount / DaysInMonth(startDate) * BudgetDaysInMonth(startDate, date);
+            }
+
+            return 0;
         }
 
         private static int BudgetDaysInMonth(DateTime startDate, DateTime endDate)
