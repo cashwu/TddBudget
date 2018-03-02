@@ -13,6 +13,11 @@ namespace TddBudget
 
         public decimal CalBudgets(DateTime startDate, DateTime endDate)
         {
+            if (startDate > endDate)
+            {
+                throw new ArgumentException();
+            }
+
             var budgets = _budgetRepository.GetAll();
             var totalAmount = 0m;
             foreach (var budget in budgets)

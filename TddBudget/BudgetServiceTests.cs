@@ -98,6 +98,13 @@ namespace TddBudget
             BudgetsShouldBe(374, new DateTime(2018, 2, 15), new DateTime(2018, 4, 5));
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void 起始日期大於結束日期 ()
+        {
+            BudgetsShouldBe(0, new DateTime(2018, 5, 15), new DateTime(2018, 4, 5));
+        }
+
         private void BudgetsShouldBe(decimal expected, DateTime startDate, DateTime endDate)
         {
             Assert.AreEqual(expected, budgetService.CalBudgets(startDate, endDate));
