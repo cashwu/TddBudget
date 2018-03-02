@@ -50,7 +50,7 @@ namespace TddBudget
         }
 
         [TestMethod]
-        public void 跨月有預算其中一個無預算 ()
+        public void 當月有預算_次月無預算()
         {
             GivenBudget(new List<Budget>
             {
@@ -59,6 +59,18 @@ namespace TddBudget
             });
 
             BudgetsShouldBe(170, new DateTime(2018, 3, 15), new DateTime(2018, 4, 5));
+        }
+
+        [TestMethod]
+        public void 當月有預算_前一個月無預算()
+        {
+            GivenBudget(new List<Budget>
+            {
+                new Budget { YearMonth = "2018/03", Amount = 0},
+                new Budget { YearMonth = "2018/04", Amount = 300}
+            });
+
+            BudgetsShouldBe(50, new DateTime(2018, 3, 15), new DateTime(2018, 4, 5));
         }
 
         private void BudgetsShouldBe(decimal expected, DateTime startDate, DateTime endDate)

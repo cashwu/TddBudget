@@ -41,6 +41,11 @@ namespace TddBudget
                 return budget.Amount / DaysInMonth(startDate) * BudgetDaysInMonth(startDate, date);
             }
 
+            if (endDate <= budgetDate.AddMonths(1).AddDays(-1))
+            {
+                return budget.Amount / DaysInMonth(endDate) * BudgetDaysInMonth(budgetDate, endDate);
+            }
+
             return 0;
         }
 
