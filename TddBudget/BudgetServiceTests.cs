@@ -49,17 +49,17 @@ namespace TddBudget
             BudgetsShouldBe(1, new DateTime(2018, 2, 15), new DateTime(2018, 2, 15));
         }
 
-        //[TestMethod]
-        //public void 跨月有預算()
-        //{
-        //    GivenBudget(new List<Budget>
-        //    {
-        //        new Budget { YearMonth = "201802", Amount = 28},
-        //        new Budget { YearMonth = "201803", Amount = 310},
-        //    });
+        [TestMethod]
+        public void 跨月有預算其中一個無預算 ()
+        {
+            GivenBudget(new List<Budget>
+            {
+                new Budget { YearMonth = "201803", Amount = 310},
+                new Budget { YearMonth = "201804", Amount = 0}
+            });
 
-        //    BudgetsShouldBe(63, new DateTime(2018, 2, 15), new DateTime(2018, 3, 5));
-        //}
+            BudgetsShouldBe(160, new DateTime(2018, 3, 15), new DateTime(2018, 4, 5));
+        }
 
         private void BudgetsShouldBe(decimal expected, DateTime startDate, DateTime endDate)
         {
