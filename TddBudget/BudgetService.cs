@@ -26,13 +26,13 @@ namespace TddBudget
         private decimal BudgetInMonth(DateTime startDate, DateTime endDate, Budget budget)
         {
             var budgetDate = Convert.ToDateTime(budget.YearMonth);
-            //不在當月
-            if (startDate.Month != budgetDate.Month && endDate.Month != budgetDate.Month)
+
+            if (startDate <= budgetDate && budgetDate.AddMonths(1).AddDays(-1) <= endDate)
             {
-                return 0;
+                return budget.Amount;
             }
 
-            if (startDate >= budgetDate)
+            if (startDate >= budgetDate && budgetDate.Month == startDate.Month)
             {
                 var date = endDate.Month == budgetDate.Month
                     ? endDate
@@ -41,7 +41,7 @@ namespace TddBudget
                 return budget.Amount / DaysInMonth(startDate) * BudgetDaysInMonth(startDate, date);
             }
 
-            if (endDate <= budgetDate.AddMonths(1).AddDays(-1))
+            if (endDate <= budgetDate.AddMonths(1).AddDays(-1) && endDate.Month == budgetDate.Month)
             {
                 return budget.Amount / DaysInMonth(endDate) * BudgetDaysInMonth(budgetDate, endDate);
             }
