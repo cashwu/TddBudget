@@ -20,10 +20,20 @@ namespace TddBudget
             {
                 var budget = budgets.First();
 
-                return budget.Amount / DateTime.DaysInMonth(startDate.Year, startDate.Month) * ((endDate - startDate).Days + 1);
+                return budget.Amount / DaysInMonth(startDate) * BudgetDaysInMonth(startDate, endDate);
             }
 
             return 0;
+        }
+
+        private static int BudgetDaysInMonth(DateTime startDate, DateTime endDate)
+        {
+            return ((endDate - startDate).Days + 1);
+        }
+
+        private int DaysInMonth(DateTime date)
+        {
+            return DateTime.DaysInMonth(date.Year, date.Month);
         }
     }
 }
