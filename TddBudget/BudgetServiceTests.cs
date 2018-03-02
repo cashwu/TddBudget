@@ -24,6 +24,17 @@ namespace TddBudget
             BudgetShouldBe(0, new DateTime(2018, 02, 01), new DateTime(2018, 02, 05));
         }
 
+        [TestMethod]
+        public void BudgetInOneMonth()
+        {
+            GivenBudgetRepo(new List<Budget>
+            {
+                new Budget{ YearOfMonth = "2018/02", Amount = 28}
+            });
+
+            BudgetShouldBe(5, new DateTime(2018, 02, 01), new DateTime(2018, 02, 05));
+        }
+
         private void GivenBudgetRepo(List<Budget> budgets)
         {
             budgetRepo.GetAll().Returns(budgets);
