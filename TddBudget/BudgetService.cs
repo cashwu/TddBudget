@@ -36,16 +36,21 @@ namespace TddBudget
 
         private static bool IsBudgetOverlap(DateTime startDate, DateTime endDate, DateTime budgetDate)
         {
-            return budgetDate >= startDate && budgetDate <= endDate;
+            return budgetDate.AddMonths(1).AddDays(-1) >= startDate
+                   && budgetDate <= endDate;
         }
 
         private static int DaysInBudget(DateTime startDate, DateTime endDate, DateTime budgetDate)
         {
-            var startDateInBudget = budgetDate >= startDate
+            var startDateInBudget = budgetDate > startDate
                 ? new DateTime(budgetDate.Year, budgetDate.Month, 1)
                 : startDate;
 
-            return ((endDate - startDateInBudget).Days + 1);
+            var endDateInBudget = budgetDate.AddMonths(1).AddDays(-1) < endDate
+                ? new DateTime(budgetDate.Year, budgetDate.Month, budgetDate.AddMonths(1).AddDays(-1).Day)
+                : endDate;
+
+            return ((endDateInBudget - startDateInBudget).Days + 1);
         }
 
         private static int BudgetDateInMonth(DateTime budgetDate)
