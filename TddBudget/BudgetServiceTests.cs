@@ -68,6 +68,32 @@ namespace TddBudget
             BudgetShouldBe(28, new DateTime(2018, 01, 15), new DateTime(2018, 03, 10));
         }
 
+        [TestMethod]
+        public void 有三個月有預算_查詢三個月()
+        {
+            GivenBudgetRepo(new List<Budget>
+            {
+                new Budget{ YearOfMonth = "2018/01", Amount = 31},
+                new Budget{ YearOfMonth = "2018/02", Amount = 28},
+                new Budget{ YearOfMonth = "2018/03", Amount = 31}
+            });
+
+            BudgetShouldBe(55, new DateTime(2018, 01, 15), new DateTime(2018, 03, 10));
+        }
+
+        [TestMethod]
+        public void 有三個月有預算_查詢三個月_修改金額()
+        {
+            GivenBudgetRepo(new List<Budget>
+            {
+                new Budget{ YearOfMonth = "2018/01", Amount = 310},
+                new Budget{ YearOfMonth = "2018/02", Amount = 28},
+                new Budget{ YearOfMonth = "2018/03", Amount = 31}
+            });
+
+            BudgetShouldBe(208, new DateTime(2018, 01, 15), new DateTime(2018, 03, 10));
+        }
+
         private void GivenBudgetRepo(List<Budget> budgets)
         {
             budgetRepo.GetAll().Returns(budgets);
