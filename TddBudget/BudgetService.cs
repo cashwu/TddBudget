@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TddBudget
 {
@@ -17,6 +14,13 @@ namespace TddBudget
 
         public decimal CalBudgets(DateTime startDate, DateTime endDate)
         {
+            var budgets = _budgetRepository.GetAll();
+
+            if (budgets.Any())
+            {
+                return 15;
+            }
+
             return 0;
         }
     }

@@ -24,6 +24,17 @@ namespace TddBudget
             BudgetsShouldBe(0, new DateTime(2018, 4, 1), new DateTime(2018, 4, 5));
         }
 
+        [TestMethod]
+        public void BudgetInSameMonth()
+        {
+            GivenBudget(new List<Budget>
+            {
+                new Budget { YearMonth = "201802", Amount = 28}
+            });
+
+            BudgetsShouldBe(15, new DateTime(2018, 2, 1), new DateTime(2018, 2, 15));
+        }
+
         private void BudgetsShouldBe(decimal expected, DateTime startDate, DateTime endDate)
         {
             Assert.AreEqual(expected, budgetService.CalBudgets(startDate, endDate));
