@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TddBudget
 {
-    class Budget
+    public class Budget
     {
     }
 }
