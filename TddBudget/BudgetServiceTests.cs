@@ -73,6 +73,31 @@ namespace TddBudget
             BudgetsShouldBe(50, new DateTime(2018, 3, 15), new DateTime(2018, 4, 5));
         }
 
+        [TestMethod]
+        public void 當月有預算_次月有預算()
+        {
+            GivenBudget(new List<Budget>
+            {
+                new Budget { YearMonth = "2018/03", Amount = 310},
+                new Budget { YearMonth = "2018/04", Amount = 300}
+            });
+
+            BudgetsShouldBe(220, new DateTime(2018, 3, 15), new DateTime(2018, 4, 5));
+        }
+
+        [TestMethod]
+        public void 跨三個月有預算()
+        {
+            GivenBudget(new List<Budget>
+            {
+                new Budget { YearMonth = "2018/02", Amount = 28},
+                new Budget { YearMonth = "2018/03", Amount = 310},
+                new Budget { YearMonth = "2018/04", Amount = 300}
+            });
+
+            BudgetsShouldBe(374, new DateTime(2018, 2, 15), new DateTime(2018, 4, 5));
+        }
+
         private void BudgetsShouldBe(decimal expected, DateTime startDate, DateTime endDate)
         {
             Assert.AreEqual(expected, budgetService.CalBudgets(startDate, endDate));
