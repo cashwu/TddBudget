@@ -35,6 +35,17 @@ namespace TddBudget
             BudgetShouldBe(5, new DateTime(2018, 02, 01), new DateTime(2018, 02, 05));
         }
 
+        [TestMethod]
+        public void 只有一個月有預算_查詢兩個月_只有後面一個月有交集()
+        {
+            GivenBudgetRepo(new List<Budget>
+            {
+                new Budget{ YearOfMonth = "2018/02", Amount = 28}
+            });
+
+            BudgetShouldBe(10, new DateTime(2018, 01, 15), new DateTime(2018, 02, 10));
+        }
+
         private void GivenBudgetRepo(List<Budget> budgets)
         {
             budgetRepo.GetAll().Returns(budgets);

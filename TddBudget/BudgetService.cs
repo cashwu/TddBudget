@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace TddBudget
 {
@@ -16,21 +15,23 @@ namespace TddBudget
         {
             var budgets = budgetRepo.GetAll();
 
-            if (!budgets.Any())
+            decimal totalAmount = 0;
+            foreach (var budget in budgets)
             {
-                return 0;
+                var budgetDate = Convert.ToDateTime(budget.YearOfMonth);
+
+                if (IsBudgetOverlap(startDate, endDate, budgetDate))
+                {
+                    totalAmount += CalcBudget(startDate, endDate, budget, budgetDate);
+                }
             }
 
-            var budget = budgets.FirstOrDefault();
+            return totalAmount;
+        }
 
-            var budgetDate = Convert.ToDateTime(budget.YearOfMonth);
-
-            if (IsBudgetOverlap(startDate, endDate, budgetDate))
-            {
-                return budget.Amount / BudgetDateInMonth(budgetDate) * DaysInBudget(startDate, endDate);
-            }
-
-            return 0;
+        private decimal CalcBudget(DateTime startDate, DateTime endDate, Budget budget, DateTime budgetDate)
+        {
+            return budget.Amount / BudgetDateInMonth(budgetDate) * DaysInBudget(startDate, endDate, budgetDate);
         }
 
         private static bool IsBudgetOverlap(DateTime startDate, DateTime endDate, DateTime budgetDate)
@@ -38,9 +39,13 @@ namespace TddBudget
             return budgetDate >= startDate && budgetDate <= endDate;
         }
 
-        private static int DaysInBudget(DateTime startDate, DateTime endDate)
+        private static int DaysInBudget(DateTime startDate, DateTime endDate, DateTime budgetDate)
         {
-            return ((endDate - startDate).Days + 1);
+            var startDateInBudget = budgetDate >= startDate
+                ? new DateTime(budgetDate.Year, budgetDate.Month, 1)
+                : startDate;
+
+            return ((endDate - startDateInBudget).Days + 1);
         }
 
         private static int BudgetDateInMonth(DateTime budgetDate)
