@@ -17,18 +17,23 @@ namespace TddBudget
 
             foreach (var budget in budgets)
             {
-                var budgetDate = Convert.ToDateTime(budget.YearMonth);
-
-                //不在當月
-                if (startDate.Month != budgetDate.Month && endDate.Month != budgetDate.Month)
-                {
-                    return 0;
-                }
-
-                return budget.Amount / DaysInMonth(startDate) * BudgetDaysInMonth(startDate, endDate);
+                return BudgetInMonth(startDate, endDate, budget);
             }
 
             return 0;
+        }
+
+        private decimal BudgetInMonth(DateTime startDate, DateTime endDate, Budget budget)
+        {
+            var budgetDate = Convert.ToDateTime(budget.YearMonth);
+
+            //不在當月
+            if (startDate.Month != budgetDate.Month && endDate.Month != budgetDate.Month)
+            {
+                return 0;
+            }
+
+            return budget.Amount / DaysInMonth(startDate) * BudgetDaysInMonth(startDate, endDate);
         }
 
         private static int BudgetDaysInMonth(DateTime startDate, DateTime endDate)
