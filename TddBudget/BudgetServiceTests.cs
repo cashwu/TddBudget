@@ -36,15 +36,14 @@ namespace TddBudget
         }
 
         [TestMethod]
-        public void 跨有預算的月份()
+        public void 當月有預算()
         {
             GivenBudget(new List<Budget>
             {
                 new Budget { YearMonth = "201802", Amount = 28},
-                new Budget { YearMonth = "201803", Amount = 310}
             });
 
-            BudgetsShouldBe(63, new DateTime(2018, 2, 15), new DateTime(2018, 3, 5));
+            BudgetsShouldBe(1, new DateTime(2018, 2, 15), new DateTime(2018, 2, 15));
         }
 
         private void BudgetsShouldBe(decimal expected, DateTime startDate, DateTime endDate)

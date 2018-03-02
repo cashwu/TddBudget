@@ -18,7 +18,9 @@ namespace TddBudget
 
             if (budgets.Any())
             {
-                return 15;
+                var budget = budgets.FirstOrDefault(b => b.YearMonth == startDate.ToString("yyyyMM"));
+
+                return budget.Amount / DateTime.DaysInMonth(startDate.Year, startDate.Month) * ((endDate - startDate).Days + 1);
             }
 
             return 0;
