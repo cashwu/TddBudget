@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace TddBudget
 {
@@ -16,9 +15,15 @@ namespace TddBudget
         {
             var budgets = _budgetRepository.GetAll();
 
-            if (budgets.Any())
+            foreach (var budget in budgets)
             {
-                var budget = budgets.First();
+                var budgetDate = Convert.ToDateTime(budget.YearMonth);
+
+                //不在當月
+                if (startDate.Month != budgetDate.Month && endDate.Month != budgetDate.Month)
+                {
+                    return 0;
+                }
 
                 return budget.Amount / DaysInMonth(startDate) * BudgetDaysInMonth(startDate, endDate);
             }
