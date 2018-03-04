@@ -32,9 +32,9 @@ namespace TddBudget
         public decimal TotalBudgets(DateTime startDate, DateTime endDate)
         {
             var budgets = repository.GetAll();
+            var period = new Period(startDate, endDate);
             if (budgets.Any())
             {
-                var period = new Period(startDate, endDate);
                 var budget = budgets[0];
 
                 if (period.StartDate > budget.LastDay)

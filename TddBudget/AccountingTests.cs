@@ -39,7 +39,7 @@ namespace TddBudget
         }
 
         [TestMethod]
-        public void one_effective_day_period_before_budget_month()
+        public void no_effective_day_period_before_budget_month()
         {
             GivenBudgets(
                 new Budgets { YearOfMonth = "201804", Amount = 30 }
@@ -51,7 +51,7 @@ namespace TddBudget
         }
 
         [TestMethod]
-        public void one_effective_day_period_after_budget_month()
+        public void no_effective_day_period_after_budget_month()
         {
             GivenBudgets(
                 new Budgets { YearOfMonth = "201804", Amount = 30 }
