@@ -13,6 +13,11 @@ namespace TddBudget
 
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
+
+        public decimal EffectiveDays()
+        {
+            return (EndDate - StartDate).Days + 1;
+        }
     }
 
     public class Accounting
@@ -29,15 +34,17 @@ namespace TddBudget
             var budgets = repository.GetAll();
             if (budgets.Any())
             {
-                return EffectiveDays(new Period(startDate, endDate));
+                var period = new Period(startDate, endDate);
+                var budget = budgets[0];
+                if (period.EndDate < budget.FirstDay)
+                {
+                    return 0;
+                }
+
+                return period.EffectiveDays();
             }
 
             return 0;
-        }
-
-        private static decimal EffectiveDays(Period period)
-        {
-            return (period.EndDate - period.StartDate).Days + 1;
         }
     }
 }
