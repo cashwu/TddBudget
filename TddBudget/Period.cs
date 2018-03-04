@@ -25,14 +25,15 @@ namespace TddBudget
                 return 0;
             }
 
-            return (EndDate - EffectiveStartDate(budget)).Days + 1;
-        }
+            var effectiveEndDate = budget.LastDay < EndDate
+                ? budget.LastDay
+                : EndDate;
 
-        public DateTime EffectiveStartDate(Budgets budget)
-        {
-            return budget.FirstDay > StartDate
+            var effectiveStartDate = budget.FirstDay > StartDate
                 ? budget.FirstDay
                 : StartDate;
+
+            return (effectiveEndDate - effectiveStartDate).Days + 1;
         }
     }
 }
