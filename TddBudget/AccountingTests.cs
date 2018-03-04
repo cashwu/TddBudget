@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
 using System.Linq;
 
 namespace TddBudget
@@ -22,7 +23,19 @@ namespace TddBudget
             GivenBudgets();
             Init();
 
-            TotalBudgetsShouldBe(0);
+            TotalBudgetsShouldBe(0, new DateTime(2018, 04, 01), new DateTime(2018, 4, 2));
+        }
+
+        [TestMethod]
+        public void one_effective_day_period_inside_budgets_month()
+        {
+            GivenBudgets(
+                new Budgets { YearOfMonth = "201804", Amount = 30 }
+            );
+
+            Init();
+
+            TotalBudgetsShouldBe(1, new DateTime(2018, 04, 01), new DateTime(2018, 4, 2));
         }
 
         private void GivenBudgets(params Budgets[] budgets)
@@ -30,9 +43,9 @@ namespace TddBudget
             repository.GetAll().Returns(budgets.ToList());
         }
 
-        private void TotalBudgetsShouldBe(int expected)
+        private void TotalBudgetsShouldBe(int expected, DateTime startDate, DateTime endDate)
         {
-            Assert.AreEqual(expected, accounting.TotalBudgets());
+            Assert.AreEqual(expected, accounting.TotalBudgets(startDate, endDate));
         }
     }
 }

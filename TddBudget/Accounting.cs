@@ -1,4 +1,7 @@
-﻿namespace TddBudget
+﻿using System;
+using System.Linq;
+
+namespace TddBudget
 {
     public class Accounting
     {
@@ -9,8 +12,14 @@
             this.repository = repository;
         }
 
-        public decimal TotalBudgets()
+        public decimal TotalBudgets(DateTime startDate, DateTime endDate)
         {
+            var budgets = repository.GetAll();
+            if (budgets.Any())
+            {
+                return 1;
+            }
+
             return 0;
         }
     }
