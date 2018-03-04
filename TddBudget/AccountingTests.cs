@@ -99,6 +99,18 @@ namespace TddBudget
             TotalBudgetsShouldBe(1, new DateTime(2018, 5, 30), new DateTime(2018, 5, 1));
         }
 
+        [TestMethod]
+        public void daily_amount()
+        {
+            GivenBudgets(
+                new Budgets { YearOfMonth = "201804", Amount = 300 }
+            );
+
+            Init();
+
+            TotalBudgetsShouldBe(20, new DateTime(2018, 4, 1), new DateTime(2018, 4, 2));
+        }
+
         private void GivenBudgets(params Budgets[] budgets)
         {
             repository.GetAll().Returns(budgets.ToList());

@@ -20,7 +20,7 @@ namespace TddBudget
             {
                 var budget = budgets[0];
 
-                return period.EffectiveDate(budget);
+                return budget.DailyAmount() * period.EffectiveDate(budget);
             }
 
             return 0;
