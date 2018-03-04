@@ -23,7 +23,7 @@ namespace TddBudget
             GivenBudgets();
             Init();
 
-            TotalBudgetsShouldBe(0, new DateTime(2018, 04, 01), new DateTime(2018, 4, 2));
+            TotalBudgetsShouldBe(0, new DateTime(2018, 04, 01), new DateTime(2018, 4, 1));
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace TddBudget
 
             Init();
 
-            TotalBudgetsShouldBe(1, new DateTime(2018, 04, 01), new DateTime(2018, 4, 2));
+            TotalBudgetsShouldBe(1, new DateTime(2018, 04, 01), new DateTime(2018, 4, 1));
         }
 
         private void GivenBudgets(params Budgets[] budgets)
