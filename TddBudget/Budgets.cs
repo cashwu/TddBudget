@@ -7,7 +7,7 @@ namespace TddBudget
         public decimal Amount { get; set; }
         public string YearOfMonth { get; set; }
 
-        public DateTime FirstDay
+        private DateTime FirstDay
         {
             get
             {
@@ -15,7 +15,7 @@ namespace TddBudget
             }
         }
 
-        public DateTime LastDay
+        private DateTime LastDay
         {
             get
             {
@@ -23,7 +23,7 @@ namespace TddBudget
             }
         }
 
-        public int TotalDays
+        private int TotalDays
         {
             get
             {
@@ -31,14 +31,14 @@ namespace TddBudget
             }
         }
 
-        public decimal DailyAmount()
+        private decimal DailyAmount()
         {
             return (Amount / TotalDays);
         }
 
         public decimal TotalBudgets(Period period)
         {
-            return DailyAmount() * period.EffectiveDate(this);
+            return DailyAmount() * period.EffectiveDate(new Period(FirstDay, LastDay));
         }
     }
 }

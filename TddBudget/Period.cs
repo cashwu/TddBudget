@@ -17,24 +17,24 @@ namespace TddBudget
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
 
-        public int EffectiveDate(Budgets budget)
+        public int EffectiveDate(Period period)
         {
-            if (StartDate > budget.LastDay)
+            if (StartDate > period.EndDate)
             {
                 return 0;
             }
 
-            if (EndDate < budget.FirstDay)
+            if (EndDate < period.StartDate)
             {
                 return 0;
             }
 
-            var effectiveEndDate = budget.LastDay < EndDate
-                ? budget.LastDay
+            var effectiveEndDate = period.EndDate < EndDate
+                ? period.EndDate
                 : EndDate;
 
-            var effectiveStartDate = budget.FirstDay > StartDate
-                ? budget.FirstDay
+            var effectiveStartDate = period.StartDate > StartDate
+                ? period.StartDate
                 : StartDate;
 
             return (effectiveEndDate - effectiveStartDate).Days + 1;
