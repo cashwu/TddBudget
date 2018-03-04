@@ -35,5 +35,10 @@ namespace TddBudget
         {
             return (Amount / TotalDays);
         }
+
+        public decimal TotalBudgets(Period period)
+        {
+            return DailyAmount() * period.EffectiveDate(this);
+        }
     }
 }
