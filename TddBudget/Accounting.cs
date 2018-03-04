@@ -36,6 +36,11 @@ namespace TddBudget
             {
                 var period = new Period(startDate, endDate);
                 var budget = budgets[0];
+
+                if (period.StartDate > budget.LastDay)
+                {
+                    return 0;
+                }
                 if (period.EndDate < budget.FirstDay)
                 {
                     return 0;

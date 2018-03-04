@@ -14,5 +14,14 @@ namespace TddBudget
                 return DateTime.ParseExact(YearOfMonth + "01", "yyyyMMdd", null);
             }
         }
+
+        public DateTime LastDay
+        {
+            get
+            {
+                var daysInMonth = DateTime.DaysInMonth(FirstDay.Year, FirstDay.Month);
+                return DateTime.ParseExact(YearOfMonth + daysInMonth, "yyyyMMdd", null);
+            }
+        }
     }
 }

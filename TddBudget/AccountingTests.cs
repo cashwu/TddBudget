@@ -50,6 +50,18 @@ namespace TddBudget
             TotalBudgetsShouldBe(0, new DateTime(2018, 3, 31), new DateTime(2018, 3, 31));
         }
 
+        [TestMethod]
+        public void one_effective_day_period_after_budget_month()
+        {
+            GivenBudgets(
+                new Budgets { YearOfMonth = "201804", Amount = 30 }
+            );
+
+            Init();
+
+            TotalBudgetsShouldBe(0, new DateTime(2018, 5, 1), new DateTime(2018, 5, 1));
+        }
+
         private void GivenBudgets(params Budgets[] budgets)
         {
             repository.GetAll().Returns(budgets.ToList());
